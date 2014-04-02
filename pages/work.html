@@ -1,0 +1,67 @@
+<script>
+  $(function() {
+    var color = {
+      "filter": "none",
+      "-webkit-filter": "grayscale(0)"
+    }
+    var grayscale = {
+      "filter": "url(filters.svg#grayscale)", /* Firefox 3.5+ */
+      "filter": "gray", /* IE6-9 */
+      "-webkit-filter": "grayscale(1)", /* Google Chrome, Safari 6+ & Opera 15+ */
+    }
+    $( "#accordion" ).accordion({ 
+      icons: false, 
+      active: false,
+      collapsible: true,
+      header: "div.header",
+      heightStyle: "content",
+      beforeActivate: function( event, ui ) {
+        ui.newHeader.css(color);
+        ui.oldHeader.css(grayscale);
+      }
+    });
+  });
+</script>
+<div id="workContent" class='item'>
+  <h1>Work</h1>
+  <p>Here are some of the projects that I have worked on</p>
+
+  <div id="accordion">
+    <div class='header' id='waffle'>
+      <h3>Sticky Waffle</h3>
+    </div>
+    <div>
+      <p>
+        Sticky waffle is a music toy that was made in collaboration with Luis Rosario. The Web Audio API was used to synthesize the music and the visualizations for it were implemented through javascript and HTML's canvas element.
+      </p>
+      <a target="_blank" href="sites/sticky-waffle">Launch project</a>
+    </div>
+    <div class='header' id='wanderlust'>
+      <h3>Wanderlust</h3>
+    </div>
+    <div>
+      <p>
+        Wanderlust is a tangible interactive experience that is to be exhibited at Imagine RIT 2014. My duties include building custom controllers with Arduino boards in addition to stiching together various types of media in Processing in order to make an awesome experience.
+      </p>
+      <a target="_blank" href="http://sugarpeas.cias.rit.edu/">Check out our progress here</a>
+    </div>
+    <div class='header' id='sasb'>
+      <h3>SASB Materiality Map</h3>
+    </div>
+    <div>
+      <p>
+        The SASB Materiality Map was the first project I worked on while on internship with <a href="http://www.brandlogic.com" target="_blank">Brandlogic</a>. My responsiblilites included writing scripts to export data from an Excel document into a format that was usable for the chart, as well as implementing the functionality of the chart as a whole.
+      </p>
+      <a target="_blank" href="http://www.sasb.org/materiality/sasb-materiality-map/">Launch project</a>
+    </div>
+    <div class='header' id='ibm'>
+      <h3>IBM developerWorks infographic</h3>
+    </div>
+    <div>
+      <p>
+        The IBM developerWorks infographic was another project that I contributed to during my time with <a href="http://www.brandlogic.com" target="_blank">Brandlogic</a>. Working closely with a team of designers and developers I helped implement the functionality of the chart, as well as writing some data exporting scripts.
+      </p>
+      <a target="_blank" href="http://www.ibm.com/ibmcai/techtrends">Launch project</a>
+    </div>
+  </div>
+</div>

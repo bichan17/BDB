@@ -1,0 +1,263 @@
+canvas{
+  /*position: fixed;*/
+  z-index: -10;
+  padding-left: 0;
+  padding-right: 0;
+  display: block;
+  border:5px solid #EEEEEE;
+  border-radius:25px;
+  width: 100%;
+  height: 100%;
+  /*position: absolute;*/
+}
+body{
+  margin: 0;
+  /*background-color: #fbfcfc;*/
+  background-color: #ffffff;
+  font-size: 62.5%;
+
+  font-family: "Helvetica Neue",Helvetica,Arial,Verdana,"メイリオ",Meiryo,"ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro",Osaka,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;
+}
+a{
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+a:hover{
+  color: #555555;
+}
+#wrapper{
+  position: relative; 
+  padding:0; 
+  margin:0 auto; 
+  /*width:85.33333%;    for responsive canvas. do later!
+  max-width: 1000px;*/
+  width: 1000px;
+}
+#wrapper:after {
+    padding-top: 75%; /*4:3 ratio*/
+    display: block;
+    content: '';
+}
+#content{
+  position: absolute;
+  top: 0; bottom: 0; right: 0; left: 0;
+  /*display: none;*/
+}
+.loading{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 100;
+  border: 2px solid;
+  text-align: center;
+}
+.loading img{
+  padding-top: 30%;
+}
+.bbq-nav{
+  /*position: relative;*/
+  height: 38px;
+  /*width: 30%;*/
+  /*margin: 0 auto;*/
+}
+.bbq-nav ul{
+  text-align: justify;
+  margin: 0;
+  padding: 0;
+}
+.bbq-nav ul li{
+  display: inline-block;
+}
+.bbq-nav ul:after{
+  content:' '; 
+  display:inline-block; 
+  width: 100%; 
+  height: 0;
+}
+.bbq-nav a{
+  font-size: 3.3em;
+  text-decoration: none;
+  color: black;
+  font-weight: 300;
+}
+.bbq-nav a:hover{
+  color: #555555;
+}
+.item{
+  position: absolute;
+  font-size: 1.8em;
+}
+.item h1{
+  font-weight: 400;
+  text-align: center;
+}
+#extrasContent{
+  width: 445px;
+  height: 540px;
+  top: 181px;
+  left: 290px;
+  text-align: center;
+}
+#contactContent{
+  width: 532px;
+  height: 604px;
+  top: 114px;
+  left: 411px;
+  text-align: center;
+}
+/*about*/
+#aboutContent{
+  width: 665px;
+  height: 516px;
+  top: 165px;
+  left: 167px;
+}
+#walletpic{
+  width:280px;
+  float: left;
+}
+#heading h1{
+  text-align: left;
+  font-family: Garamond,Georgia, serif;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 3.4em;
+  margin: 10px 0;
+
+}
+#heading h2{
+  color: white;
+  background-color: black;
+  text-align: center;
+  font-weight: normal;
+  font-style: italic;
+  width: 530px;
+  font-size: 1.7em;
+  margin: 0;
+  margin-bottom: 24px;
+}
+.g {
+  background-image: -webkit-linear-gradient(left, black 80%, rgba(0,0,0,0) 90%);
+  background-image: -moz-linear-gradient(left, black 80%, rgba(0,0,0,0) 90%);
+  /*padding: 2px;*/
+}
+#aboutContent div#right{
+  margin-left: 308px;
+}
+#contentWrap{
+  position: relative;
+}
+div#right h3{
+  font-size: 1.4em;
+  margin: 15px 0 12px;
+}
+div#right a{
+  display: inline-block;
+}
+div#right ul{
+  list-style: none;
+  padding: 0px;
+  margin-bottom: 23px;
+}
+div#right li{
+  font-size: 1.1em;
+}
+a#resume{
+  background-image: url('../images/resume.png');
+  height: 45px;
+  width: 61px;
+  margin-right: 20px;
+}
+a#resume:hover{
+  background-image: url('../images/resume hover.png');
+}
+a#github{
+  background-image: url('../images/github.png');
+  height: 44px;
+  width: 44px;
+}
+a#github:hover{
+  background-image: url('../images/github hover.png');
+}
+.bgElement{
+  position: absolute;
+}
+#seal{
+  top: 0px;
+  right: 5px;
+}
+#sig{
+  right: -4px;
+  bottom: 114px;
+}
+#bldg{
+  bottom: 0px;
+  right: 158px;
+}
+/*work*/
+#workContent{
+  width: 425px;
+  height: 700px;
+  top: 66px;
+  left: 277px;
+  text-align: center;
+}
+#workContent div{
+  /*text-align: center;*/
+}
+#accordion h3{
+  color: #FCFCFC;
+  text-shadow:0px 0px 5px #141414;
+  font-weight: 300;
+  padding-top: 19px;
+  margin: 0px;
+
+}
+div#waffle{
+  background-image: url('../images/stickywaffle.png');
+}
+div#wanderlust{
+  background-image: url('../images/wanderlust.png');
+}
+div#sasb{
+  background-image: url('../images/sasb.png');
+}
+div#ibm{
+  background-image: url('../images/ibm.png');
+}
+.ui-accordion-header{
+  color: white;
+  background-color: black;
+  height: 60px;
+
+  filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+}
+.ui-accordion-header:hover{
+  filter: none !important;
+  -webkit-filter: grayscale(0) !important;
+}
+.ui-accordion-content{
+  text-align: left;
+}
+.portContent{
+  width: 400px;
+}
+.portContent h3{
+  text-align: center;
+}
+
+#defaultContent{
+  /*display: none;*/
+
+  background-color:rgba(230,230,230,0.5);
+  text-align: center;
+  width: 725px;
+  margin: -100px 0 0 -362px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
