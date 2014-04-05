@@ -38,7 +38,6 @@ app.main = (function(){
     
     // Remove .bbq-current class from any previously "current" link(s).
     $( 'a.bbq-current' ).removeClass( 'bbq-current' );
-    console.log("url: " + url);
 
     if(url){
       // Hide any visible ajax content.
@@ -51,25 +50,25 @@ app.main = (function(){
 
     //if we are not on default page
     if($('a.bbq-current').data("page")){
-      console.log("yes");
       if(anim.reached == true){
-        console.log("reached");
+        console.log("reached destFrame");
         //we are either at the last frame in the anim or at the beginning after reversing
         if(anim.getCurrFrame() != 0){
           //we are at the end! either load ajax or reverse
           console.log("at the end of an anim!")
-
           if(contentDisplayed == false){
             console.log('load content');
             loadContent(cache, url);
             contentDisplayed = true;
+
+            //then start loop
+            //...
           }else{
             //reverse
             console.log("REVERSE!");
             anim.setDestFrame(0);
             anim.setReached(false);
             contentDisplayed = false;
-
           }
         }else{
           //we have reversed and need to load a new anim
@@ -77,7 +76,7 @@ app.main = (function(){
           anim.setReached(true);
           makeAnim();
         }
-
+        //stop or start the animation
         update();
       }else{
         //starting a new anim from zero
@@ -85,21 +84,17 @@ app.main = (function(){
         makeAnim();
       }
     }
-    // frame = 0;
-    //do some shit with frame and destFrame
-
     console.log("--------end hashchange----------");
   })
   function makeAnim(){
     page = $('a.bbq-current').data("page");
-    anim = new app.anim.Anim(canvas,page);
+    anim = new app.anim.Anim(canvas,page, allImages);
     update();
   }
   function loadContent(cache, url){
     if ( cache[ url ] ) {
       // Since the element is already in the cache, it doesn't need to be
       // created, so instead of creating it again, let's just show it!
-
       cache[ url ].show();
       
     } else {
@@ -129,40 +124,53 @@ app.main = (function(){
   var acDelta = 0; 
   var msPerFrame = 50;
   var contentDisplayed = false;
-
-
   var anim;
+  var allImages;
   
   function init() {
     console.log("init");
     reached = false;
     canvas = document.getElementById('animCanvas');
-    var page = 'default';
+    var page = 'home';
 
     //load images before doing anything else
 
     // create object
-    imageObj = new Image();
+    
+
+    imageObjs =[];
 
 
     // set image list
-    images = ["images/about.png","images/contact.png","images/work.png"]
+    images = ["butt.png","images/about.png","images/work.png","images/contact.png"];
+
+
+
 
     // start preloading
     for(var i=0; i<=images.length-1; i++) 
     {
+      imageObj = new Image();
       imageObj.src=images[i];
+      imageObjs[i] = imageObj;
     }
+
     $(imageObj).load(function(){
-      anim = new app.anim.Anim(canvas,page);
+      console.log(imageObjs);
+      allImages = {
+        home: imageObjs[0],
+        about: imageObjs[1],
+        work : imageObjs[2],
+        contact: imageObjs[3]
+      }
+
+      anim = new app.anim.Anim(canvas,page, allImages);
       $(window).on('resize', function(){
         anim.resize();
       });
 
       $(window).trigger( 'hashchange' );
-      console.log('accordion');
       $( "#accordion" ).accordion();
-
       $(".loading").hide();
     });
     

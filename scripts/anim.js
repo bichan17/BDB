@@ -9,7 +9,7 @@ app.anim = (function(){
         clearTimeout
   } )();
 
-  function Anim(canvas, page){
+  function Anim(canvas, page, allImages){
     //need canvas context stuff
     this.currFrame = 0;
     this.currRow = 0;
@@ -23,6 +23,7 @@ app.anim = (function(){
     this.reached = false;
     this.canvas = canvas;
     this.page = page;
+    this.allImages = allImages;
 
 
     this.setUp(canvas, page);
@@ -34,22 +35,27 @@ app.anim = (function(){
     this.ctx = canvas.getContext("2d");
     var img = new Image();
     console.log("PAGE: " + page);
-    if(page == 'default'){
+    if(page == 'home'){
       //we are showing the default screen
       img.src = 'butt.png';
 
     }else{
       //going to change image animate forward
       img.src = 'images/'+ page +'.png';
-      //set reached or destFrame here????
+      //set destFrame
       this.destFrame = $('a.bbq-current').data("frame");
-      console.log("destFrame "+ this.destFrame);
     }
+    console.log(img);
+    console.log(this.allImages);
+
+
     this.img = img;
+    // this.img = img;
+
 
     //store object referrence...
     var that = this;
-    $(img).load(function(){
+    $(this.img).load(function(){
       //anim loaded
       that.imageReady = true;
       that.resize();
@@ -120,6 +126,7 @@ app.anim = (function(){
     this.ctx.fillStyle = '#FBFCFC'; 
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); 
     if (this.imageReady){
+
       this.ctx.drawImage(this.img, this.currCol*this.frameWidth, this.currRow*this.frameHeight, this.frameWidth, this.frameHeight, 0, 0, this.canvas.width, this.canvas.height);
     }
   };
