@@ -9,7 +9,7 @@ app.anim = (function(){
         clearTimeout
   } )();
 
-  function Anim(canvas, page, allImages){
+  function Anim(canvas, page){
     //need canvas context stuff
     this.currFrame = 0;
     this.currRow = 0;
@@ -23,42 +23,71 @@ app.anim = (function(){
     this.reached = false;
     this.canvas = canvas;
     this.page = page;
-    this.allImages = allImages;
 
 
     this.setUp(canvas, page);
 
   }
   Anim.prototype.setUp = function(canvas, page) {
-    // body...
-    console.log("anim setUp");
+    console.log("anim setUp page: " + page);
+
     this.ctx = canvas.getContext("2d");
-    var img = new Image();
-    console.log("PAGE: " + page);
-    if(page == 'home'){
-      //we are showing the default screen
-      img.src = 'butt.png';
-
-    }else{
-      //going to change image animate forward
-      img.src = 'images/'+ page +'.png';
-      //set destFrame
-      this.destFrame = $('a.bbq-current').data("frame");
-    }
-    console.log(img);
-    console.log(this.allImages);
-
-
-    this.img = img;
-    // this.img = img;
-
 
     //store object referrence...
     var that = this;
-    $(this.img).load(function(){
+
+    //image to become the current img
+    var img = new Image();
+
+    //load images before doing anything else
+
+    // create array
+    var imageObjs =[];
+    
+    // set image list
+    var images = ["butt.png","images/about.png","images/work.png","images/contact.png"];
+
+    //create object for all images
+    var allImages;
+
+    // start preloading
+    for(var i=0; i<=images.length-1; i++) 
+    {
+      imageObj = new Image();
+      imageObj.src=images[i];
+      imageObjs[i] = imageObj;
+    }
+
+    $(imageObj).load(function(){
+      console.log("LOADED IMAGES!");
+      allImages = {
+        home: imageObjs[0],
+        about: imageObjs[1],
+        work : imageObjs[2],
+        contact: imageObjs[3]
+      }
+      that.allImages = allImages;
+      
+      that.img = allImages[page];
+
+
+      if(page != 'home'){
+        //we are showing the default screen
+        that.destFrame = $('a.bbq-current').data("frame");
+      }
+
+      $(window).trigger( 'hashchange' );
+      $( "#accordion" ).accordion();
+
       //anim loaded
       that.imageReady = true;
+      if(!that.img){
+        that.img = img;
+      }
+
       that.resize();
+
+      $(".loading").hide();
     });
   };
   Anim.prototype.resize = function() {
@@ -66,6 +95,7 @@ app.anim = (function(){
     console.log('resize');
     this.canvas.width = this.canvas.parentNode.clientWidth; 
     this.canvas.height = this.canvas.parentNode.clientHeight;
+    // debugger;
     this.redraw(); 
 
   };
@@ -90,6 +120,34 @@ app.anim = (function(){
       this.currFrame = 0;
     }
   };
+  Anim.prototype.switch = function(newPage){
+    //reset anim from 0
+    // this.img = this.allImages
+    console.log("SWITCH!! - " + newPage);
+
+    this.img = this.allImages[newPage];
+
+
+    this.currFrame = 0;
+    this.currRow = 0;
+    this.currCol = 0;
+
+
+    this.reached = false;
+    this.destFrame = $('a.bbq-current').data("frame");
+
+    var that = this;
+    $(this.img).load(function(){
+      //anim loaded
+      that.imageReady = true;
+      that.resize();
+    });
+
+
+
+
+    
+  }
   Anim.prototype.advanceFrame = function() {
     //advance
     this.currFrame++; 
@@ -125,8 +183,9 @@ app.anim = (function(){
   Anim.prototype.redraw = function() {
     this.ctx.fillStyle = '#FBFCFC'; 
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height); 
-    if (this.imageReady){
+    // debugger;
 
+    if (this.imageReady){
       this.ctx.drawImage(this.img, this.currCol*this.frameWidth, this.currRow*this.frameHeight, this.frameWidth, this.frameHeight, 0, 0, this.canvas.width, this.canvas.height);
     }
   };

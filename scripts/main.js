@@ -50,6 +50,7 @@ app.main = (function(){
 
     //if we are not on default page
     if($('a.bbq-current').data("page")){
+      page = $('a.bbq-current').data("page");
       if(anim.reached == true){
         console.log("reached destFrame");
         //we are either at the last frame in the anim or at the beginning after reversing
@@ -73,22 +74,28 @@ app.main = (function(){
         }else{
           //we have reversed and need to load a new anim
           console.log("finished reversing!!");
-          anim.setReached(true);
-          makeAnim();
+          // anim.setReached(true);
+          // makeAnim();
+          anim.switch(page);
+          // update();
+
         }
         //stop or start the animation
         update();
       }else{
         //starting a new anim from zero
         console.log("NOT REACHED!!");
-        makeAnim();
+        // makeAnim();
+        anim.switch(page);
+        update();
       }
     }
+    // debugger;
     console.log("--------end hashchange----------");
   })
   function makeAnim(){
     page = $('a.bbq-current').data("page");
-    anim = new app.anim.Anim(canvas,page, allImages);
+    anim = new app.anim.Anim(canvas,page);
     update();
   }
   function loadContent(cache, url){
@@ -133,50 +140,16 @@ app.main = (function(){
     canvas = document.getElementById('animCanvas');
     var page = 'home';
 
-    //load images before doing anything else
-
-    // create object
+    anim = new app.anim.Anim(canvas,page);
     
-
-    imageObjs =[];
-
-
-    // set image list
-    images = ["butt.png","images/about.png","images/work.png","images/contact.png"];
-
-
-
-
-    // start preloading
-    for(var i=0; i<=images.length-1; i++) 
-    {
-      imageObj = new Image();
-      imageObj.src=images[i];
-      imageObjs[i] = imageObj;
-    }
-
-    $(imageObj).load(function(){
-      console.log(imageObjs);
-      allImages = {
-        home: imageObjs[0],
-        about: imageObjs[1],
-        work : imageObjs[2],
-        contact: imageObjs[3]
-      }
-
-      anim = new app.anim.Anim(canvas,page, allImages);
-      $(window).on('resize', function(){
-        anim.resize();
-      });
-
-      $(window).trigger( 'hashchange' );
-      $( "#accordion" ).accordion();
-      $(".loading").hide();
+    $(window).on('resize', function(){
+      anim.resize();
     });
     
 
   }  
   function update() { 
+
     var request = requestAnimFrame(update); 
     var delta = Date.now() - lastUpdateTime; 
     
