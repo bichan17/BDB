@@ -251,6 +251,39 @@ div#ibm{
   text-align: center;
 }
 
+/*contact*/
+
+#contactContent a{
+  display: block;
+  margin: 0 auto;
+  background-size: contain;
+  height: 160px;
+  margin-bottom: 20px;
+}
+
+a#email{
+  background-image: url('../images/email.png');
+  width: 155px;
+}
+a#email:hover{
+  background-image: url('../images/email hover.png');
+}
+a#skype{
+  background-image: url('../images/skype.png');
+  width: 159px;
+}
+a#skype:hover{
+  background-image: url('../images/skype hover.png');
+}
+a#linkedin{
+  background-image: url('../images/linkedin.png');
+  width: 160px;
+}
+a#linkedin:hover{
+  background-image: url('../images/linkedin hover.png');
+}
+
+
 #defaultContent{
   /*display: none;*/
 
